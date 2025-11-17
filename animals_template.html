@@ -1,167 +1,350 @@
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zootopia Tierverzeichnis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        @gray-darker:               #444444;
-        @gray-dark:                 #696969;
-        @gray:                      #999999;
-        @gray-light:                #cccccc;
-        @gray-lighter:              #ececec;
-        @gray-lightest:             lighten( @gray-lighter,4%);
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #ff9a8b;
+            --accent-color: #6b4e71;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --section-bg: #f5f7ff;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         html {
-            background-color: #ffe9e9;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         h1 {
             text-align: center;
-            font-size: 40pt;
-            font-weight: normal;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-bottom: 1rem;
         }
 
-        body {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-style: normal;
-            font-weight: 400;
-            letter-spacing: 0;
-            padding: 1rem;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            -moz-font-feature-settings: "liga" on;
-            width: 900px;
-            margin: auto;
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
         }
 
         .cards {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .cards__item {
-            background-color: white;
-            border-radius: 0.25rem;
-            box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            padding: 1rem;
-            margin: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.08);
         }
 
-        .card__title {
-            color: @gray-dark;
-            font-size: 1.25rem;
-            font-weight: 300;
-            letter-spacing: 2px;
+        .card__header {
+            background: linear-gradient(135deg, #4a6fa5, #6b4e71);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+
+        .card__content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card__section {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            color: #6b4e71;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid rgba(107, 78, 113, 0.1);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .card__text {
-            flex: 1 1 auto;
-            font-size: 0.95rem;
-            line-height: 2;
-            margin-bottom: 1.25rem;
+        .card__detail {
+            display: flex;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .card__detail strong {
+            color: #4a6fa5;
+            min-width: 160px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .card__detail span {
+            color: #444;
+            line-height: 1.5;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 1024px) {
+            .card__content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards {
+                padding: 0.5rem;
+            }
+
+            .card__content {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .card__section {
+                padding: 1.2rem;
+            }
+
+            .card__detail {
+                flex-direction: column;
+                gap: 0.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .card__detail strong {
+                min-width: 100%;
+                font-size: 0.95rem;
+            }
+
+            .card__detail span {
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
 <body>
-<h1>My Animal Repository</h1>
-<ul class="cards">
-    <li class="cards__item"><strong>Name:</strong> American Foxhound<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> North-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Arctic Fox<br/>
-        <strong>Diet:</strong> Carnivore<br/>
-        <strong>Location:</strong> Eurasia<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Cross Fox<br/>
-        <strong>Diet:</strong> Carnivore<br/>
-        <strong>Location:</strong> North-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Darwin's fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> South-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> English Foxhound<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Europe<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Fennec Fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Africa<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Fox<br/>
-        <strong>Diet:</strong> Carnivore<br/>
-        <strong>Location:</strong> Africa<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Fox Snakes<br/>
-        <strong>Diet:</strong> Carnivore<br/>
-        <strong>Location:</strong> North-America<br/>
-        <strong>Type:</strong> Reptilia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Fox Squirrel<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Central-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Fox Terrier<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Europe<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Golden-Crowned Flying Fox<br/>
-        <strong>Diet:</strong> Herbivore<br/>
-        <strong>Location:</strong> Asia<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Gray Fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Central-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Kit Fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Central-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Marble Fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> North-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Red Fox<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Africa<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Smooth Fox Terrier<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Europe<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Tibetan Fox<br/>
-        <strong>Diet:</strong> Carnivore<br/>
-        <strong>Location:</strong> Asia<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Toy Fox Terrier<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> North-America<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-    <li class="cards__item"><strong>Name:</strong> Wire Fox Terrier<br/>
-        <strong>Diet:</strong> Omnivore<br/>
-        <strong>Location:</strong> Europe<br/>
-        <strong>Type:</strong> Mammalia<br/>
-    </li>
-</ul>
+<h1>Unsere Tierwelt</h1>
+<div id="animals-container">
+    <div class="loading">Lade Tierdaten...</div>
+</div>
+
+<script>
+    // Function to translate animal type to German
+    function translateAnimalType(engType) {
+        const types = {
+            'Mammalia': 'Säugetier',
+            'Reptilia': 'Reptil',
+            'Aves': 'Vogel',
+            'Amphibia': 'Amphibie',
+            'Actinopterygii': 'Fisch',
+            'Chondrichthyes': 'Knorpelfisch'
+        };
+        return types[engType] || engType;
+    }
+
+    // Function to translate diet to German
+    function translateDiet(diet) {
+        const diets = {
+            'Carnivore': 'Fleischfresser',
+            'Herbivore': 'Pflanzenfresser',
+            'Omnivore': 'Allesfresser',
+            'Insectivore': 'Insektenfresser',
+            'Piscivore': 'Fischfresser',
+            'Frugivore': 'Fruchtfresser'
+        };
+        return diets[diet] || diet;
+    }
+
+    // Function to translate location to German
+    function translateLocation(location) {
+        const locations = {
+            'North America': 'Nordamerika',
+            'South America': 'Südamerika',
+            'Central America': 'Mittelamerika',
+            'Europe': 'Europa',
+            'Asia': 'Asien',
+            'Africa': 'Afrika',
+            'Oceania': 'Ozeanien',
+            'Antarctica': 'Antarktis',
+            'Worldwide': 'Weltweit',
+            'North-America': 'Nordamerika'
+        };
+        return locations[location] || location;
+    }
+
+    // Format lifespan if it contains "years"
+    function formatLifespan(lifespan) {
+        if (!lifespan) return 'Nicht verfügbar';
+        return lifespan.replace('years', 'Jahre').replace('year', 'Jahr');
+    }
+
+    // Load and display animals
+    async function loadAnimals() {
+        const container = document.getElementById('animals-container');
+
+        try {
+            container.innerHTML = '<div class="loading">Lade Tierdaten...</div>';
+            const response = await fetch('animals_data.json');
+
+            if (!response.ok) {
+                throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+            }
+
+            const animals = await response.json();
+
+            if (!Array.isArray(animals) || animals.length === 0) {
+                container.innerHTML = '<div class="error">Keine Tierdaten gefunden.</div>';
+                return;
+            }
+
+            const cardsHTML = animals.map(animal => {
+                // Basic info
+                const name = animal.name || 'Unbekanntes Tier';
+                const scientificName = animal.taxonomy?.scientific_name || 'Nicht verfügbar';
+                const type = animal.taxonomy?.class ?
+                    translateAnimalType(animal.taxonomy.class) : 'Unbekannt';
+                const family = animal.taxonomy?.family || 'Nicht verfügbar';
+                const order = animal.taxonomy?.order || 'Nicht verfügbar';
+
+                // Characteristics
+                const diet = animal.characteristics?.diet ?
+                    translateDiet(animal.characteristics.diet) : 'Nicht verfügbar';
+                const lifespan = formatLifespan(animal.characteristics?.lifespan);
+                const temperament = animal.characteristics?.temperament || 'Nicht verfügbar';
+                const distinctiveFeature = animal.characteristics?.distinctive_feature || 'Nicht verfügbar';
+                const group = animal.characteristics?.group || 'Nicht verfügbar';
+                const averageLitter = animal.characteristics?.average_litter_size || 'Nicht verfügbar';
+
+                // Location
+                const location = animal.locations?.[0] ?
+                    translateLocation(animal.locations[0]) : 'Nicht verfügbar';
+
+                return `
+                    <div class="cards__item">
+                        <div class="card__header">${name}</div>
+                        <div class="card__content">
+                            <div class="card__section">
+                                <div class="section-title">Taxonomie</div>
+                                <div class="card__detail">
+                                    <strong>Klasse:</strong>
+                                    <span>${type}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Ordnung:</strong>
+                                    <span>${order}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Familie:</strong>
+                                    <span>${family}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Gruppe:</strong>
+                                    <span>${group}</span>
+                                </div>
+                            </div>
+
+                            <div class="card__section">
+                                <div class="section-title">Lebensweise</div>
+                                <div class="card__detail">
+                                    <strong>Ernährung:</strong>
+                                    <span>${diet}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Lebensraum:</strong>
+                                    <span>${location}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Lebenserwartung:</strong>
+                                    <span>${lifespan}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Wurfgröße (ca.):</strong>
+                                    <span>${averageLitter}</span>
+                                </div>
+                            </div>
+
+                            <div class="card__section">
+                                <div class="section-title">Besonderheiten</div>
+                                <div class="card__detail">
+                                    <strong>Temperament:</strong>
+                                    <span>${temperament}</span>
+                                </div>
+                                <div class="card__detail">
+                                    <strong>Bes. Merkmal:</strong>
+                                    <span>${distinctiveFeature}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('\n');
+
+            container.innerHTML = `
+                    <div class="cards">
+                        ${cardsHTML}
+                    </div>`;
+
+        } catch (error) {
+            console.error('Fehler beim Laden der Tiere:', error);
+            container.innerHTML = `
+                    <div class="error">
+                        <p>Fehler beim Laden der Tierdaten.</p>
+                        <p>${error.message}</p>
+                    </div>`;
+        }
+    }
+
+    // Load animals when the page loads
+    document.addEventListener('DOMContentLoaded', loadAnimals);
+</script>
 </body>
 </html>
