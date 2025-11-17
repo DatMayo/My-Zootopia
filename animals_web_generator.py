@@ -22,22 +22,22 @@ def print_animal_info():
             # Print name if it exists
             if 'name' in animal:
                 print(f"Name: {animal['name']}")
-                output += f"Name: {animal['name']}<br/>\n"
+                output += f"<strong>Name:</strong> {animal['name']}<br/>\n"
 
             # Print diet if it exists (nested under characteristics)
             if 'characteristics' in animal and 'diet' in animal['characteristics']:
                 print(f"Diet: {animal['characteristics']['diet']}")
-                output += f"Diet: {animal['characteristics']['diet']}<br/>\n"
+                output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
 
             # Print first location if locations list exists and is not empty
             if 'locations' in animal and animal['locations']:
                 print(f"Location: {animal['locations'][0]}")
-                output += f"Location: {animal['locations'][0]}<br/>\n"
+                output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
 
             # Print type if it exists (using taxonomy class as type)
             if 'taxonomy' in animal and 'class' in animal['taxonomy']:
                 print(f"Type: {animal['taxonomy']['class']}")
-                output += f"Type: {animal['taxonomy']['class']}<br/>\n"
+                output += f"<strong>Type:</strong> {animal['taxonomy']['class']}<br/>\n"
 
             output += "</li>"
 
