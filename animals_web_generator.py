@@ -2,12 +2,53 @@ import json
 
 
 def load_data(file_path):
-    """ Loads a JSON file """
+    """Load and parse a JSON file.
+    
+    Args:
+        file_path (str): Path to the JSON file to be loaded.
+        
+    Returns:
+        dict: Parsed JSON data as a Python dictionary.
+        
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        json.JSONDecodeError: If the file contains invalid JSON.
+    """
     with open(file_path, "r") as handle:
         return json.load(handle)
 
 
+def write_to_html(file_path, content):
+    """Write content to an HTML file.
+
+    Args:
+        file_path (str): Path where the HTML file will be created or overwritten.
+        content (str): HTML content to be written to the file.
+
+    Note:
+        This will overwrite the file if it already exists.
+    """
+    with open(file_path, "w") as handle:
+        handle.write(content)
+
+
+
 def print_animal_info():
+    """Process and display animal information from a JSON file.
+    
+    This function reads animal data from 'animals_data.json', extracts key information
+    including name, diet, location, and animal type, then prints this information
+    to both the console and formats it as HTML list items.
+    
+    The function handles several error cases:
+    - Missing or inaccessible file
+    - Invalid JSON format
+    - Other unexpected errors
+    
+    Note:
+        The HTML output is currently printed to console but not saved to a file.
+        Consider using write_to_html() to save the output.
+    """
     try:
         output = ''  # define an empty string
 
@@ -42,6 +83,7 @@ def print_animal_info():
             output += "</li>"
 
         print(output)
+        write_to_html("animals_template.html", output)
     except FileNotFoundError:
         print("Error: animals_data.json file not found.")
     except json.JSONDecodeError:
